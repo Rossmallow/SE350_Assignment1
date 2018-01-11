@@ -2,65 +2,74 @@
  * 
  * @author Ross Nelson
  *
- * A class that a Strategic Search on a grid
+ *         A class that a Strategic Search on a grid
  */
-public class StrategicSearch implements SearchBehavior{
+public class StrategicSearch implements SearchBehavior {
 
 	// Keeps track of the number of cells that have been searched
-		private int cellCount = 0;
-		private int leftToFind = 8;
-		
-	// Implements a search that  
+	private int cellCount = 0;
+	private int leftToFind = 8;
+
+	// Implements a search that
 	@Override
 	public void search(int[][] g) {
 		// TODO Auto-generated method stub
-		for (int x = 0; x < g.length && leftToFind > 0; x += 3) {
-			for (int y = 0; y < g[x].length && leftToFind > 0; y += 3) {
-				if (g[x][y] == 1) {
-					leftToFind--;
-					checkUp(g, x, y);
-					checkRight(g, x, y);
-					checkDown(g, x, y);
-					checkLeft(g, x, y);
+		while (leftToFind > 0) {
+			int n = 0, m = 0;
+			for (int x = n; x < g.length; x += 3) {
+				for (int y = m; y < g[x].length; y += 3) {
+					if (g[x][y] == 1) {
+						leftToFind--;
+						checkUp(g, x, y);
+						checkRight(g, x, y);
+						checkDown(g, x, y);
+						checkLeft(g, x, y);
+					}
+					g[x][y] = 2;
+					cellCount++;
 				}
-				g[x][y] = 2;
-				cellCount++;
 			}
+			n++;
+			m++;
 		}
 	}
-	
+
 	private void checkUp(int[][] g, int x, int y) {
-		if (g[x][y - 1] == 1) {
+		if (y == 0) {
+		} else if (g[x][y - 1] == 1) {
 			leftToFind--;
 			g[x][y - 1] = 2;
 			checkUp(g, x, y - 1);
 		}
 	}
-	
+
 	private void checkRight(int[][] g, int x, int y) {
-		if (g[x + 1][y] == 1) {
+		if (x == g.length - 1) {
+		} else if (g[x + 1][y] == 1) {
 			leftToFind--;
 			g[x + 1][y] = 2;
-			checkRight(g, x, y - 1);
+			checkRight(g, x + 1, y);
 		}
 	}
-	
+
 	private void checkDown(int[][] g, int x, int y) {
-		if (g[x][y + 1] == 1) {
+		if (y == g[x].length - 1) {
+		} else if (g[x][y + 1] == 1) {
 			leftToFind--;
 			g[x][y + 1] = 2;
-			checkDown(g, x, y - 1);
+			checkDown(g, x, y + 1);
 		}
 	}
-	
+
 	private void checkLeft(int[][] g, int x, int y) {
-		if (g[x - 1][y] == 1) {
+		if (x == 0) {
+		} else if (g[x - 1][y] == 1) {
 			leftToFind--;
 			g[x - 1][y] = 2;
-			checkLeft(g, x, y - 1);
+			checkLeft(g, x - 1, y);
 		}
 	}
-	
+
 	// Returns the name of this search, "Strategic Search"
 	@Override
 	public String name() {

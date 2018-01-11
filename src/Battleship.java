@@ -35,7 +35,7 @@ public class Battleship {
 		// Sets up grid in game one formation
 		setup(grid, 0, 16);
 		
-		searchBehavior = new HorizontalSearch();
+		searchBehavior = new StrategicSearch();
 		searchBehavior.printGrid(grid);
 		searchBehavior.search(grid);
 		System.out.println(searchBehavior.name() + " searched " + searchBehavior.cellsSearched() + " cells before finding all of the ships.");
