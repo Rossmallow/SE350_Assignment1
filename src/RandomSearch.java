@@ -39,7 +39,20 @@ public class RandomSearch implements SearchBehavior{
 	}
 	
 	public int random() {
-		return (int) (Math.random() * 24);
+		return (int) (Math.random() * 25);
+	}
+
+	@Override
+	public void printGrid(int[][] g) {
+		// TODO Auto-generated method stub
+		// Prints the values stored in grid
+		for (int[] n : g) {
+			for (int m : n) {
+				System.out.print(m);
+			}
+			System.out.println("");
+		}
+		System.out.println("");
 	}
 
 }

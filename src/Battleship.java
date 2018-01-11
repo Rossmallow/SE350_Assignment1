@@ -20,20 +20,26 @@ import java.util.StringTokenizer;
  * A class that performs various searches on multiple grid layouts
  */
 public class Battleship {
-	private SearchBehavior searchBehavior;
+	private static SearchBehavior searchBehavior;
 	private static int[] input = new int[48]; 	// There are 48 integers that make up the 24 coordinates necessary to set up 3 games
 	private static int[][] grid;
 
-	// Sets default search strategy
-	public Battleship() {
-		searchBehavior = new HorizontalSearch();
-	}
+//	// Sets default search strategy
+//	public Battleship() {
+//		searchBehavior = new HorizontalSearch();
+//	}
 	
 	public static void main (String[] args) {
 		readInputFile();
 		
 		// Sets up grid in game one formation
 		setup(grid, 0, 16);
+		
+		searchBehavior = new RandomSearch();
+//		searchBehavior.printGrid(grid);
+		searchBehavior.search(grid);
+		System.out.println(searchBehavior.name() + " searched " + searchBehavior.cellsSearched() + " cells before finding all of the ships.");
+//		searchBehavior.printGrid(grid);
 		
 		// Sets up grid in game two formation
 		setup(grid, 16, 32);

@@ -5,7 +5,7 @@
  * An interface to search using various strategies
  */
 public interface SearchBehavior {
-	// Executes a search on the grid g passed
+	// Executes a search on the grid, g, passed
 	public void search(int[][] g);
 	
 	// Returns the name of the search
@@ -13,4 +13,7 @@ public interface SearchBehavior {
 	
 	// Returns the number of cells searched before finding both ships
 	public int cellsSearched();
+	
+	// Prints a copy of the grid, g, that is being passes
+	public void printGrid(int[][] g);
 }
