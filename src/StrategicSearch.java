@@ -6,6 +6,9 @@
  */
 public class StrategicSearch implements SearchBehavior{
 
+	// Keeps track of the number of cells that have been searched
+		private int cellCount = 0;
+		
 	// Implements a search that  
 	@Override
 	public void search(int[][] g) {

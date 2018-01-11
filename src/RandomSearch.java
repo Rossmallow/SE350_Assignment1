@@ -16,9 +16,8 @@ public class RandomSearch implements SearchBehavior{
 		int leftToFind = 8;
 		while (leftToFind > 0) {
 			int x = random(), y = random();
-			if (g[x][y] == 1) {
+			if (g[x][y] == 1)
 				leftToFind--;
-			}
 			g[x][y] = 2;
 			cellCount++;
 		}

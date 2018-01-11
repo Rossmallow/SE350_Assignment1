@@ -6,11 +6,22 @@
  */
 public class HorizontalSearch implements SearchBehavior {
 
+	// Keeps track of the number of cells that have been searched
+		private int cellCount = 0;
+		
 	// Implements a search that starts at 0,0 and performs a systematic line-by-line sweep through the grid, g, until it has found both ships
 	@Override
 	public void search(int[][] g) {
 		// TODO Auto-generated method stub
-		
+		int leftToFind = 8;
+		for (int x = 0; x < g.length && leftToFind > 0; x++) {
+			for (int y = 0; y < g[x].length && leftToFind > 0; y++) {
+				if (g[x][y] == 1)
+					leftToFind--;
+				g[x][y] = 2;
+				cellCount++;
+			}
+		}
 	}
 
 	// Returns the name of this search, "Horizontal Search"
@@ -24,7 +35,7 @@ public class HorizontalSearch implements SearchBehavior {
 	@Override
 	public int cellsSearched() {
 		// TODO Auto-generated method stub
-		return 0;
+		return cellCount;
 	}
 
 	@Override
