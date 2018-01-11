@@ -35,6 +35,7 @@ public class Battleship {
 		// Sets up grid in game one formation
 		setup(grid, 0, 16);
 		
+		// Iterates through the three searches, prints a grid before and after searching, and gives the amount of cells searched for game setup one
 		searchBehavior = new StrategicSearch();
 		searchBehavior.printGrid(grid);
 		searchBehavior.search(grid);
@@ -44,8 +45,22 @@ public class Battleship {
 		// Sets up grid in game two formation
 		setup(grid, 16, 32);
 		
+		// Iterates through the three searches, prints a grid before and after searching, and gives the amount of cells searched for game setup two
+		searchBehavior = new StrategicSearch();
+		searchBehavior.printGrid(grid);
+		searchBehavior.search(grid);
+		System.out.println(searchBehavior.name() + " searched " + searchBehavior.cellsSearched() + " cells before finding all of the ships.");
+		searchBehavior.printGrid(grid);
+		
 		// Sets up grid in game three formation
 		setup(grid, 32, 48);
+		
+		// Iterates through the three searches, prints a grid before and after searching, and gives the amount of cells searched for game setup three
+		searchBehavior = new StrategicSearch();
+		searchBehavior.printGrid(grid);
+		searchBehavior.search(grid);
+		System.out.println(searchBehavior.name() + " searched " + searchBehavior.cellsSearched() + " cells before finding all of the ships.");
+		searchBehavior.printGrid(grid);
 	}
 
 	// Reads and saves data from input.txt to input

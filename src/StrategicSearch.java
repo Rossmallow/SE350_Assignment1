@@ -10,64 +10,76 @@ public class StrategicSearch implements SearchBehavior {
 	private int cellCount = 0;
 	private int leftToFind = 8;
 
-	// Implements a search that
+	// Implements a search that searches every 3 cells on the x axis, alternating the starting position between the first three cells on each of the rows
 	@Override
 	public void search(int[][] g) {
 		// TODO Auto-generated method stub
-		while (leftToFind > 0) {
-			int n = 0, m = 0;
-			for (int x = n; x < g.length; x += 3) {
-				for (int y = m; y < g[x].length; y += 3) {
-					if (g[x][y] == 1) {
-						leftToFind--;
-						checkUp(g, x, y);
-						checkRight(g, x, y);
-						checkDown(g, x, y);
-						checkLeft(g, x, y);
-					}
-					g[x][y] = 2;
-					cellCount++;
+		int z = 0;
+		for (int x = 0; x < g.length && leftToFind > 0; x++) {
+			for (int y = z; y < g[x].length && leftToFind > 0; y += 3) {
+				if (g[x][y] == 1) {
+					leftToFind--;
+					checkRight(g, x, y);
+					checkLeft(g, x, y);
+					checkDown(g, x, y);
+					checkUp(g, x, y);
 				}
+				g[x][y] = 2;
+				cellCount++;
 			}
-			n++;
-			m++;
+			if (z < 3)
+				z++;
+			else
+				z = 0;
 		}
 	}
 
+	// Gradually decreases the y position as the x position remains unchanged in order to check cells directly above a known location
 	private void checkUp(int[][] g, int x, int y) {
 		if (y == 0) {
+			return;
 		} else if (g[x][y - 1] == 1) {
 			leftToFind--;
-			g[x][y - 1] = 2;
 			checkUp(g, x, y - 1);
 		}
+		g[x][y - 1] = 2;
+		cellCount++;
+		return;
 	}
-
+	// Gradually increases the x position as the y position remains unchanged in order to check cells directly to the right of a known location
 	private void checkRight(int[][] g, int x, int y) {
 		if (x == g.length - 1) {
+			return;
 		} else if (g[x + 1][y] == 1) {
 			leftToFind--;
-			g[x + 1][y] = 2;
 			checkRight(g, x + 1, y);
 		}
+		g[x + 1][y] = 2;
+		cellCount++;
+		return;
 	}
-
+	// Gradually increases the y position as the x position remains unchanged in order to check cells directly to the left of a known location
 	private void checkDown(int[][] g, int x, int y) {
 		if (y == g[x].length - 1) {
+			return;
 		} else if (g[x][y + 1] == 1) {
 			leftToFind--;
-			g[x][y + 1] = 2;
 			checkDown(g, x, y + 1);
 		}
+		g[x][y + 1] = 2;
+		cellCount++;
+		return;
 	}
-
+	// Gradually decreases the x position as the y position remains unchanged in order to check cells directly below a known location
 	private void checkLeft(int[][] g, int x, int y) {
 		if (x == 0) {
+			return;
 		} else if (g[x - 1][y] == 1) {
 			leftToFind--;
-			g[x - 1][y] = 2;
 			checkLeft(g, x - 1, y);
 		}
+		g[x - 1][y] = 2;
+		cellCount++;
 	}
 
 	// Returns the name of this search, "Strategic Search"
