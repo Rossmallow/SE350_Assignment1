@@ -1,4 +1,11 @@
-
+/**
+ * Ross Nelson
+ * Mona Rahimi
+ * CSC 350 501
+ * January 17, 2018
+ * 
+ * Assignment 1
+ */
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -6,6 +13,12 @@ import java.io.FileWriter;
 import java.io.Reader;
 import java.util.StringTokenizer;
 
+/**
+ * 
+ * @author Ross Nelson
+ *
+ * A class that performs various searches on multiple grid layouts
+ */
 public class Battleship {
 	private SearchBehavior searchBehavior;
 	private static int[] input = new int[48]; 	// There are 48 integers that make up the 24 coordinates necessary to set up 3 games

@@ -5,7 +5,6 @@
  * An interface to search using various strategies
  */
 public interface SearchBehavior {
-	
 	// Executes a search on the grid g passed
 	public void search(int[][] g);
 	

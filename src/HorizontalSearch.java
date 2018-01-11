@@ -1,7 +1,12 @@
-
+/**
+ * 
+ * @author Ross Nelson
+ *
+ * A class that a Horizontal Search on a grid
+ */
 public class HorizontalSearch implements SearchBehavior {
 
-	// Implements a search that starts at 0,0 and performs a systematic line-by-line sweep through the grid, g, until it has found both ships. 
+	// Implements a search that starts at 0,0 and performs a systematic line-by-line sweep through the grid, g, until it has found both ships
 	@Override
 	public void search(int[][] g) {
 		// TODO Auto-generated method stub
