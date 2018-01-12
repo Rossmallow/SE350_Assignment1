@@ -36,10 +36,12 @@ public class Battleship {
 		int[] games = {1, 2, 3};
 		SearchBehavior[] searches = {new HorizontalSearch(), new RandomSearch(), new StrategicSearch()};
 		
-		battleship.readInputFile();
 		for (int game : games) {
-			System.out.println("===");
+			System.out.println("=========GAME " + game + "==========");
+			battleship.setGame(game);
+			battleship.printGrid();
 			for (SearchBehavior search : searches) {
+				System.out.println("====" + search.name().toUpperCase() + "====");
 				battleship.setGame(game);
 				battleship.setSearch(search);
 				battleship.testSearch();
@@ -54,6 +56,7 @@ public class Battleship {
 	
 	// Sets the game setup to the specified game
 	public void setGame (int g) {
+		readInputFile();
 		if (g ==1)
 			setup(0, 16);
 		else if (g == 2)
@@ -64,6 +67,7 @@ public class Battleship {
 	
 	// Sets up grid, g, with the data from input from the min value to the max value
 	public void setup(int min, int max) {
+		grid = new int[25][25];
 		int x = 0, y = 0;
 		for (int i = min; i < max - 1; i += 2) {
 			x = input[i];
@@ -73,15 +77,18 @@ public class Battleship {
 //			System.out.println(x + "," + y);
 //			//
 		}
-//		// Prints the values stored in grid
-//		for (int[] n : grid) {
-//			for (int m : n) {
-//				System.out.print(m);
-//			}
-//			System.out.println("");
-//		}
-//		System.out.println("");
-//		//
+//		printGrid();
+	}
+	
+	public void printGrid() {
+		// Prints the values stored in grid
+		for (int[] n : grid) {
+			for (int m : n) {
+				System.out.print(m);
+			}
+			System.out.println("");
+		}
+		System.out.println("");
 	}
 	
 	// Reads and saves data from input.txt to input
@@ -111,13 +118,10 @@ public class Battleship {
 		}
 	}
 	
-	public void testSearch() {	
-		readInputFile();
-		
+	public void testSearch() {			
 		// Iterates through the three searches, prints a grid before and after searching, and gives the amount of cells searched for game setup one
-		searchBehavior.printGrid(grid);
 		searchBehavior.search(grid);
-		System.out.println(searchBehavior.name() + " searched " + searchBehavior.cellsSearched() + " cells before finding all of the ships.");
-//		searchBehavior.printGrid(grid);
+		searchBehavior.printGrid(grid);
+		System.out.println(searchBehavior.name() + " searched " + searchBehavior.cellsSearched() + " cells before finding all of the ships.\n");
 	}
 }
