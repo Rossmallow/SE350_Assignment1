@@ -15,74 +15,65 @@ public class StrategicSearch implements SearchBehavior {
 		// TODO Auto-generated method stub
 		int leftToFind = 8;
 		int z = 0;
-		while (leftToFind > 0) {
-			for (int x = 0; x < g.length; x++) {
-				for (int y = z; y < g[x].length; y += 3) {
-					if (g[x][y] == 1) {
-						leftToFind -= (checkRight(g, x, y) + checkLeft(g, x, y) + checkDown(g, x, y) + checkUp(g, x, y));
-					}
-					g[x][y] = 2;
-					cellCount++;
+		for (int x = 0; x < g.length && leftToFind > 0; x++) {
+			for (int y = z; y < g[x].length && leftToFind > 0; y += 3) {
+				if (g[x][y] == 1) {
+					leftToFind -= (checkRight(g, x, y) + checkLeft(g, x, y) + checkDown(g, x, y) + checkUp(g, x, y));
 				}
-				if (z < 3)
-					z++;
-				else
-					z = 0;
+				g[x][y] = 2;
+				cellCount++;
 			}
+			if (z < 2)
+				z++;
+			else
+				z = 0;
 		}
 	}
 
 	// Gradually decreases the y position as the x position remains unchanged in order to check cells directly above a known location
 	private int checkUp(int[][] g, int x, int y) {
-		int found = 0;
-		if (y == 0) {
-			return found;
-		} else if (g[x][y - 1] == 1) {
-			found += checkUp(g, x, y - 1) + 1;
-		}
+		if (y == 0) 
+			return 0;
 		g[x][y - 1] = 2;
 		cellCount++;
-		return found;
+		if (g[x][y - 1] == 1) {
+			return checkUp(g, x, y - 1) + 1;
+		}
+		return 0;
 	}
-
 	// Gradually increases the x position as the y position remains unchanged in order to check cells directly to the right of a known location
 	private int checkRight(int[][] g, int x, int y) {
-		int found = 0;
-		if (x == g.length - 1) {
-			return found;
-		} else if (g[x + 1][y] == 1) {
-			found += checkRight(g, x + 1, y) + 1;
-		}
+		if (x == g.length - 1)
+			return 0;
 		g[x + 1][y] = 2;
 		cellCount++;
-		return found;
+		if (g[x + 1][y] == 1) {
+			return checkRight(g, x + 1, y) + 1;
+		}
+		return 0;
 	}
-
 	// Gradually increases the y position as the x position remains unchanged in order to check cells directly to the left of a known location
 	private int checkDown(int[][] g, int x, int y) {
-		int found = 0;
-		if (y == g[x].length - 1) {
-			return found;
-		} else if (g[x][y + 1] == 1) {
-			found += checkDown(g, x, y + 1) + 1;
-		}
+		if (y == g[x].length - 1)
+			return 0;
 		g[x][y + 1] = 2;
 		cellCount++;
-		return found;
+		if (g[x][y + 1] == 1) {
+			return checkDown(g, x, y + 1) + 1;
+		}
+		return 0;
 	}
-
 	// Gradually decreases the x position as the y position remains unchanged in order to check cells directly below a known location
 	private int checkLeft(int[][] g, int x, int y) {
-		int found = 0;
-		if (x == 0) {
-			return found;
-		} else if (g[x - 1][y] == 1) {
-			found += checkLeft(g, x - 1, y) + 1;
-		}
+		if (x == 0)
+			return 0;
 		g[x - 1][y] = 2;
 		cellCount++;
-		return found;
-	}
+		if (g[x - 1][y] == 1) {
+			return checkLeft(g, x - 1, y) + 1;
+		}
+		return 0;
+}
 
 	// Returns the name of this search, "Strategic Search"
 	@Override
