@@ -12,6 +12,7 @@ public class RandomSearch implements SearchBehavior{
 	// Implements a search that uses a random number generator to randomly check coordinates until it has found both ships 
 	@Override
 	public void search(int[][] g) {
+		cellCount = 0;
 		// TODO Auto-generated method stub
 		int leftToFind = 8;
 		while (leftToFind > 0) {

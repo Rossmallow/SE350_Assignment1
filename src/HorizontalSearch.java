@@ -12,6 +12,7 @@ public class HorizontalSearch implements SearchBehavior {
 	// Implements a search that starts at 0,0 and performs a systematic line-by-line sweep through the grid, g, until it has found both ships
 	@Override
 	public void search(int[][] g) {
+		cellCount = 0;
 		// TODO Auto-generated method stub
 		int leftToFind = 8;
 		for (int x = 0; x < g.length && leftToFind > 0; x++) {
