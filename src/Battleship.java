@@ -20,51 +20,72 @@ import java.util.StringTokenizer;
  * A class that performs various searches on multiple grid layouts
  */
 public class Battleship {
-	private static SearchBehavior searchBehavior;
-	private static int[] input = new int[48]; 	// There are 48 integers that make up the 24 coordinates necessary to set up 3 games
-	private static int[][] grid;
+	
+	SearchBehavior searchBehavior;
+	private int[] input = new int[48]; 			// There are 48 integers that make up the 24 coordinates necessary to set up 3 games
+	private int[][] grid = new int[25][25];		// The grid must be 25x25
 
-//	// Sets default search strategy
-//	public Battleship() {
-//		searchBehavior = new HorizontalSearch();
-//	}
+	// Sets default search strategy
+	public Battleship() {
+		searchBehavior = new HorizontalSearch();
+	}
 	
 	public static void main (String[] args) {
-		readInputFile();
+		Battleship battleship = new Battleship();
 		
-		// Sets up grid in game one formation
-		setup(grid, 0, 16);
+		int[] games = {1, 2, 3};
+		SearchBehavior[] searches = {new HorizontalSearch(), new RandomSearch(), new StrategicSearch()};
 		
-		// Iterates through the three searches, prints a grid before and after searching, and gives the amount of cells searched for game setup one
-		searchBehavior = new StrategicSearch();
-		searchBehavior.printGrid(grid);
-		searchBehavior.search(grid);
-		System.out.println(searchBehavior.name() + " searched " + searchBehavior.cellsSearched() + " cells before finding all of the ships.");
-		searchBehavior.printGrid(grid);
-		
-		// Sets up grid in game two formation
-		setup(grid, 16, 32);
-		
-		// Iterates through the three searches, prints a grid before and after searching, and gives the amount of cells searched for game setup two
-		searchBehavior = new StrategicSearch();
-		searchBehavior.printGrid(grid);
-		searchBehavior.search(grid);
-		System.out.println(searchBehavior.name() + " searched " + searchBehavior.cellsSearched() + " cells before finding all of the ships.");
-		searchBehavior.printGrid(grid);
-		
-		// Sets up grid in game three formation
-		setup(grid, 32, 48);
-		
-		// Iterates through the three searches, prints a grid before and after searching, and gives the amount of cells searched for game setup three
-		searchBehavior = new StrategicSearch();
-		searchBehavior.printGrid(grid);
-		searchBehavior.search(grid);
-		System.out.println(searchBehavior.name() + " searched " + searchBehavior.cellsSearched() + " cells before finding all of the ships.");
-		searchBehavior.printGrid(grid);
+		battleship.readInputFile();
+		for (int game : games) {
+			System.out.println("===");
+			for (SearchBehavior search : searches) {
+				battleship.setGame(game);
+				battleship.setSearch(search);
+				battleship.testSearch();
+			}
+		}
 	}
 
+	// Sets searchBehavior to the specified search
+	public void setSearch (SearchBehavior search) {
+		searchBehavior = search;
+	}
+	
+	// Sets the game setup to the specified game
+	public void setGame (int g) {
+		if (g ==1)
+			setup(0, 16);
+		else if (g == 2)
+			setup(16, 32);
+		else if (g == 3)
+			setup(32, 48);
+	}
+	
+	// Sets up grid, g, with the data from input from the min value to the max value
+	public void setup(int min, int max) {
+		int x = 0, y = 0;
+		for (int i = min; i < max - 1; i += 2) {
+			x = input[i];
+			y = input[i + 1];
+			grid[x][y] = 1;
+//			// Prints the x, y coordinates that are being stored in grid
+//			System.out.println(x + "," + y);
+//			//
+		}
+//		// Prints the values stored in grid
+//		for (int[] n : grid) {
+//			for (int m : n) {
+//				System.out.print(m);
+//			}
+//			System.out.println("");
+//		}
+//		System.out.println("");
+//		//
+	}
+	
 	// Reads and saves data from input.txt to input
-	public static void readInputFile() {
+	public void readInputFile() {
 		try {
 			FileReader inputFile = new FileReader("input.txt");
 			BufferedReader reader = new BufferedReader(inputFile);
@@ -90,26 +111,13 @@ public class Battleship {
 		}
 	}
 	
-	// Sets up grid, g, with the data from input from the min value to the max value
-	public static void setup(int[][] g, int min, int max) {
-		grid = new int[25][25];
-		int x = 0, y = 0;
-		for (int i = min; i < max - 1; i += 2) {
-			x = input[i];
-			y = input[i + 1];
-			grid[x][y] = 1;
-//			// Prints the x, y coordinates that are being stored in grid
-//			System.out.println(x + "," + y);
-//			//
-		}
-//		// Prints the values stored in grid
-//		for (int[] n : grid) {
-//			for (int m : n) {
-//				System.out.print(m);
-//			}
-//			System.out.println("");
-//		}
-//		System.out.println("");
-//		//
+	public void testSearch() {	
+		readInputFile();
+		
+		// Iterates through the three searches, prints a grid before and after searching, and gives the amount of cells searched for game setup one
+		searchBehavior.printGrid(grid);
+		searchBehavior.search(grid);
+		System.out.println(searchBehavior.name() + " searched " + searchBehavior.cellsSearched() + " cells before finding all of the ships.");
+//		searchBehavior.printGrid(grid);
 	}
 }
